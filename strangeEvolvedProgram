@@ -1,0 +1,3 @@
+(((-3.17)) (((float.swap ((float./) (((float.neg float.-) -9.2)))) float.dup) float.neg) (float./ (float.min float.tan)) (float.stackdepth float.neg ((float.tan))))
+
+The above program produced quite the strange graph.
