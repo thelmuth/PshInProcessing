@@ -2,6 +2,7 @@ package com.unicellularcomic.PshInProcessing;
 
 import java.io.*;
 import java.text.DecimalFormat;
+import java.awt.TextArea;
 
 import processing.core.*;
 import org.gwoptics.graphics.graph2D.Graph2D;
@@ -24,6 +25,8 @@ public class VisualSymbolicRegression extends PApplet {
 	PausePlayButton pausePlayButton;
 	RestartButton restartButton;
 
+	TextArea console;
+
 	PFont font;
 	
 	PushGPIndividual bestIndividual;
@@ -43,7 +46,7 @@ public class VisualSymbolicRegression extends PApplet {
 	static int HISTORICAL_COLOR;
 
 	public void setup() {
-		size(1300, 550);
+		size(1300 + 300, 550 + 300);
 		background(0);
 		paused = false;
 		terminated = false;
@@ -93,6 +96,10 @@ public class VisualSymbolicRegression extends PApplet {
 		pausePlayButton.setPosition(buttonsX, buttonsY);
 		restartButton.setPosition(
 				buttonsX + pausePlayButton.W + buttonsSpacing, buttonsY);
+		
+		// Console text area
+		 console = new TextArea("Here comes the text",10,10,1);
+		 this.add(console);
 
 		// Setup and add traces to the error graph
 		setupErrorGraph();
@@ -103,6 +110,13 @@ public class VisualSymbolicRegression extends PApplet {
 		setupHistoricalGraphTraces();
 
 	}
+	
+	// print both to the pde and to the field on the screen
+	void textln(String text_to_print) {
+	 println(text_to_print);
+	 console.append(text_to_print + "\n");
+	}
+
 
 	public void draw() {
 		if(restart){
@@ -121,7 +135,7 @@ public class VisualSymbolicRegression extends PApplet {
 			text("Terminated", 10, 80);
 			noLoop();
 		}
-
+		
 		bestIndividual = (PushGPIndividual) ga.GetBestIndividual();
 		
 		// Start the drawing
@@ -151,6 +165,12 @@ public class VisualSymbolicRegression extends PApplet {
 
 		// Draw historical fitness graph
 		drawHistoricalGraph();
+		
+		 textln("Eyes and ears are poor witnesses for men if their souls do not understand the language.");
+		 textln("");
+		 for(int i=0; i<4; i=i+1) {
+		   textln("more text hereere");
+		 }
 		
 
 	}
