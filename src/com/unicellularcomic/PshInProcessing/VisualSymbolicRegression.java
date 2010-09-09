@@ -1,8 +1,7 @@
 package com.unicellularcomic.PshInProcessing;
 
-import java.io.*;
 import java.text.DecimalFormat;
-import java.awt.TextArea;
+//import java.awt.TextArea;
 
 import processing.core.*;
 import org.gwoptics.graphics.graph2D.Graph2D;
@@ -25,7 +24,7 @@ public class VisualSymbolicRegression extends PApplet {
 	PausePlayButton pausePlayButton;
 	RestartButton restartButton;
 
-	TextArea console;
+	//TextArea console;
 
 	PFont font;
 	
@@ -46,7 +45,7 @@ public class VisualSymbolicRegression extends PApplet {
 	static int HISTORICAL_COLOR;
 
 	public void setup() {
-		size(1300 + 300, 550 + 300);
+		size(1300, 550);
 		background(0);
 		paused = false;
 		terminated = false;
@@ -62,17 +61,16 @@ public class VisualSymbolicRegression extends PApplet {
 		HISTORICAL_COLOR = color(255, 0, 80);
 
 		try {
-			File parameters = dataFile("DifficultFloatReg1.pushgp");
-			//File parameters = dataFile("floatreg2.pushgp");
-			//File parameters = dataFile("floatreg0.pushgp");
+            //String[] parameterStrings = loadStrings("DifficultFloatReg1.pushgp");
+            String[] parameterStrings = loadStrings("floatreg0.pushgp");
+            //String[] parameterStrings = loadStrings("floatreg2.pushgp");
+            
+            String parameters = "";
+            for(int i = 0; i < parameterStrings.length; i++){
+              parameters += parameterStrings[i] + '\n';
+            }
 
-			if (parameters.exists()) {
-				ga = GA.GAWithParameters(Params.ReadFromFile(parameters));
-
-			} else {
-				throw new Exception("ERROR: The file does not exist:\n"
-						+ parameters.getAbsoluteFile());
-			}
+            ga = GA.GAWithParameters(Params.Read(parameters));
 
 			if (!(ga instanceof PushGP)) {
 				throw new Exception(
@@ -98,8 +96,8 @@ public class VisualSymbolicRegression extends PApplet {
 				buttonsX + pausePlayButton.W + buttonsSpacing, buttonsY);
 		
 		// Console text area
-		 console = new TextArea("Here comes the text",10,10,1);
-		 this.add(console);
+		//console = new TextArea("Here comes the text",10,10,1);
+		//this.add(console);
 
 		// Setup and add traces to the error graph
 		setupErrorGraph();
@@ -114,7 +112,7 @@ public class VisualSymbolicRegression extends PApplet {
 	// print both to the pde and to the field on the screen
 	void textln(String text_to_print) {
 	 println(text_to_print);
-	 console.append(text_to_print + "\n");
+	 //console.append(text_to_print + "\n");
 	}
 
 
@@ -166,11 +164,11 @@ public class VisualSymbolicRegression extends PApplet {
 		// Draw historical fitness graph
 		drawHistoricalGraph();
 		
-		 textln("Eyes and ears are poor witnesses for men if their souls do not understand the language.");
-		 textln("");
-		 for(int i=0; i<4; i=i+1) {
-		   textln("more text hereere");
-		 }
+		//textln("Eyes and ears are poor witnesses for men if their souls do not understand the language.");
+		//textln("");
+		//for(int i=0; i<4; i=i+1) {
+			//textln("more text hereere");
+		//}
 		
 
 	}
