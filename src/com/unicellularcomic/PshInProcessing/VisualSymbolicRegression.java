@@ -24,9 +24,6 @@ public class VisualSymbolicRegression extends PApplet {
 	PausePlayButton pausePlayButton;
 	RestartButton restartButton;
 
-	//TextArea console;
-	
-
 	PFont font18;
 	PFont font28;
 	
@@ -49,7 +46,7 @@ public class VisualSymbolicRegression extends PApplet {
 	String targetFunctionString;
 
 	public void setup() {
-		size(1300, 650);
+		size(1300, 710);
 		background(0);
 		paused = false;
 		terminated = false;
@@ -93,16 +90,12 @@ public class VisualSymbolicRegression extends PApplet {
 		int buttonsSpacing = 10;
 		int buttonsWidth = pausePlayButton.W + restartButton.W + buttonsSpacing;
 		int buttonsX = (DIVIDER1X - buttonsWidth) / 2;
-		int buttonsY = height - 30 - pausePlayButton.W;
+		int buttonsY = 570;
 
 		pausePlayButton.setPosition(buttonsX, buttonsY);
 		restartButton.setPosition(
 				buttonsX + pausePlayButton.W + buttonsSpacing, buttonsY);
 		
-		// Console text area
-		//console = new TextArea("Here comes the text",10,10,1);
-		//this.add(console);
-
 		// Setup and add traces to the error graph
 		setupErrorGraph();
 		setupErrorGraphTraces();
@@ -115,13 +108,6 @@ public class VisualSymbolicRegression extends PApplet {
 		targetFunctionString = ((PushGP)ga).GetTargetFunctionString();
 
 	}
-	
-	// print both to the pde and to the field on the screen
-	void textln(String text_to_print) {
-	 println(text_to_print);
-	 //console.append(text_to_print + "\n");
-	}
-
 
 	public void draw() {
 		if(restart){
@@ -167,8 +153,14 @@ public class VisualSymbolicRegression extends PApplet {
 		fill(160, 180, 220);
 		noStroke();
 		rectMode(CENTER);
-		rect(DIVIDER1X, (height / 2) + 40, 4, height - 30 - 100);
-		rect(DIVIDER2X, (height / 2) + 40, 4, height - 30 - 100);
+		rect(DIVIDER1X, 365, 4, 530);
+		rect(DIVIDER2X, 365, 4, 530);
+		
+		// Bottom divider
+		fill(160, 180, 220);
+		noStroke();
+		rect(width / 2, 645, width - 40, 4);
+		
 		rectMode(CORNER);
 		
 		// Text at the left
@@ -180,6 +172,15 @@ public class VisualSymbolicRegression extends PApplet {
 				+ new DecimalFormat("0.###").format((double) bestIndividual
 						.GetFitness()), 10, 145);
 
+		// Bottom Section
+		textFont(font18);
+		textAlign(LEFT);
+		if(terminated){
+			text("Solution Program: " + bestIndividual, 10, 660, width - 20, 50);
+			
+		} else{
+			text("Best Program: " + bestIndividual, 10, 660, width - 20, 50);
+		}
 		// Render buttons
 		pausePlayButton.render();
 		restartButton.render();
@@ -189,12 +190,6 @@ public class VisualSymbolicRegression extends PApplet {
 
 		// Draw historical fitness graph
 		drawHistoricalGraph();
-		
-		//textln("Eyes and ears are poor witnesses for men if their souls do not understand the language.");
-		//textln("");
-		//for(int i=0; i<4; i=i+1) {
-			//textln("more text hereere");
-		//}
 		
 
 	}
@@ -330,10 +325,11 @@ public class VisualSymbolicRegression extends PApplet {
 		noStroke();
 		fill(50);
 		stroke(255);
-		rect(DIVIDER1X + 50, height - 55, 400, 50);
+		//rect(DIVIDER1X + 50, height - 55, 400, 50);
+		rect(DIVIDER1X + 50, 570, 400, 50);
 		
 		int crossX = DIVIDER1X + 60;
-		int crossY = height - 40;
+		int crossY = 585;
 		int crossRadius = 5;
 		
 		textAlign(LEFT);
