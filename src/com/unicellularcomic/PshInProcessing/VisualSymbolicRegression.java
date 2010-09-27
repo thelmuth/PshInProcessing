@@ -25,8 +25,10 @@ public class VisualSymbolicRegression extends PApplet {
 	RestartButton restartButton;
 
 	//TextArea console;
+	
 
-	PFont font;
+	PFont font18;
+	PFont font28;
 	
 	PushGPIndividual bestIndividual;
 	
@@ -43,9 +45,11 @@ public class VisualSymbolicRegression extends PApplet {
 	static int CROSSES_COLOR;
 	static int CIRCLES_COLOR;
 	static int HISTORICAL_COLOR;
+	
+	String targetFunctionString;
 
 	public void setup() {
-		size(1300, 550);
+		size(1300, 650);
 		background(0);
 		paused = false;
 		terminated = false;
@@ -53,8 +57,8 @@ public class VisualSymbolicRegression extends PApplet {
 		historicalXMax = 0;
 		historicalYMax = 0;
 		
-		font = loadFont("Leelawadee-Bold-18.vlw");
-		textFont(font);
+		font18 = loadFont("Leelawadee-Bold-18.vlw");
+		font28 = loadFont("Leelawadee-Bold-28.vlw");
 		
 		CROSSES_COLOR = color(0, 255, 0);
 		CIRCLES_COLOR = color(255, 240, 0);
@@ -106,6 +110,9 @@ public class VisualSymbolicRegression extends PApplet {
 		// Setup and add traces to the historical graph
 		setupHistoricalGraph();
 		setupHistoricalGraphTraces();
+		
+		// Get target function string
+		targetFunctionString = ((PushGP)ga).GetTargetFunctionString();
 
 	}
 	
@@ -139,20 +146,39 @@ public class VisualSymbolicRegression extends PApplet {
 		// Start the drawing
 		background(0);
 
+		// Top section
+		fill(255);
+		textFont(font28);
+		textAlign(CENTER);
+		text("Symbolic Regression using Psh", width / 2, 35);
+
+		if(!targetFunctionString.isEmpty()){
+			textFont(font18);
+			text("Target Function: " + targetFunctionString, width / 2, 60);
+		}
+		
+		// Top divider
+		fill(160, 180, 220);
+		noStroke();
+		rectMode(CENTER);
+		rect(width / 2, 80, width - 40, 4);
+		
 		// Dividers
 		fill(160, 180, 220);
 		noStroke();
 		rectMode(CENTER);
-		rect(DIVIDER1X, height / 2, 4, height - 40);
-		rect(DIVIDER2X, height / 2, 4, height - 40);
+		rect(DIVIDER1X, (height / 2) + 40, 4, height - 30 - 100);
+		rect(DIVIDER2X, (height / 2) + 40, 4, height - 30 - 100);
 		rectMode(CORNER);
 		
 		// Text at the left
 		fill(255);
-		text("Generation = " + ga.GetGenerationCount(), 10, 40);
+		textFont(font18);
+		textAlign(LEFT);
+		text("Generation = " + ga.GetGenerationCount(), 10, 125);
 		text("Best Fitness = "
 				+ new DecimalFormat("0.###").format((double) bestIndividual
-						.GetFitness()), 10, 60);
+						.GetFitness()), 10, 145);
 
 		// Render buttons
 		pausePlayButton.render();
@@ -203,7 +229,7 @@ public class VisualSymbolicRegression extends PApplet {
 		errorGraph.setFontColour(255, 255, 255);
 
 		errorGraph.position.x = 300;
-		errorGraph.position.y = 50;
+		errorGraph.position.y = 150;
 
 		errorGraph.setYAxisLabel("y");
 		errorGraph.setXAxisLabel("x");
@@ -298,7 +324,7 @@ public class VisualSymbolicRegression extends PApplet {
 		// Info above first graph
 		textAlign(CENTER);
 		fill(255);
-		text("Best Program Values vs. Test Case Values", 500, 25);
+		text("Best Program Values vs. Test Case Values", 500, 125);
 		
 		// Info below error graph
 		noStroke();
@@ -335,7 +361,7 @@ public class VisualSymbolicRegression extends PApplet {
 		historicalGraph.setFontColour(255, 255, 255);
 
 		historicalGraph.position.x = 850;
-		historicalGraph.position.y = 50;
+		historicalGraph.position.y = 150;
 
 		historicalGraph.setYAxisLabel("Error");
 		historicalGraph.setXAxisLabel("Generation");
@@ -368,7 +394,7 @@ public class VisualSymbolicRegression extends PApplet {
 	private void drawHistoricalGraph() {
 		textAlign(CENTER);
 		fill(255);
-		text("Historical Best Program Fitnesses", 1050, 25);
+		text("Historical Best Program Fitnesses", 1050, 125);
 		textAlign(LEFT);
 
 		// Get fitness to add to graph
