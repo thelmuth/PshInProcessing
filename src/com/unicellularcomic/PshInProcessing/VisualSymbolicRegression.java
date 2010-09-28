@@ -1,7 +1,6 @@
 package com.unicellularcomic.PshInProcessing;
 
 import java.text.DecimalFormat;
-//import java.awt.TextArea;
 
 import processing.core.*;
 import org.gwoptics.graphics.graph2D.Graph2D;
