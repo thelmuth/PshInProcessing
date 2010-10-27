@@ -137,7 +137,7 @@ public class VisualSymbolicRegression extends PApplet {
 		textAlign(CENTER);
 		text("Symbolic Regression using Psh", width / 2, 35);
 
-		if(!targetFunctionString.isEmpty()){
+		if(!targetFunctionString.equals("")){
 			textFont(font18);
 			text("Target Function: " + targetFunctionString, width / 2, 60);
 		}
